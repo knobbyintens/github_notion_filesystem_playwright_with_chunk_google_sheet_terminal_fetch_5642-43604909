@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quarterly Delivery Review Console</title>
+<style>
+  :root { color-scheme: light; }
+  body { font-family: Arial, Helvetica, sans-serif; margin: 0; background: #f4f6f8; color: #1c2632; }
+  header { background: #15263a; color: #fff; padding: 18px 28px 14px; }
+  header h1 { margin: 0 0 4px; font-size: 20px; letter-spacing: .2px; }
+  header .sub { opacity: .72; font-size: 13px; }
+  header .export { color: #9fd3ff; font-size: 12px; }
+  main { max-width: 980px; margin: 22px auto 60px; padding: 0 18px; }
+  .wave-card { background: #fff; border: 1px solid #d7dee6; border-radius: 8px; margin: 14px 0; overflow: hidden; }
+  .wave-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px;
+    cursor: pointer; font-weight: bold; background: #ffffff; user-select: none; }
+  .wave-head:hover { background: #f2f7fb; }
+  .wave-head .chev { color: #5b6d82; }
+  .wave-body { border-top: 1px solid #e4eaf0; padding: 8px 18px 16px; }
+  .wave-body table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .wave-body th, .wave-body td { text-align: left; padding: 7px 8px; border-bottom: 1px solid #eef2f6; }
+  .wave-body th { color: #48586c; font-weight: 600; background: #fafcfe; }
+  .sync { margin-top: 10px; background: #eaf1f8; border: 1px solid #c8d6e4; color: #27415d;
+    padding: 7px 12px; border-radius: 5px; cursor: pointer; font-size: 12px; }
+  .hint { color: #5b6d82; font-size: 12px; margin: 8px 0 0; }
+  #cookie-consent { position: fixed; inset: 0; background: rgba(10, 18, 28, .72); z-index: 50;
+    display: flex; align-items: center; justify-content: center; }
+  #cookie-consent .box { background: #fff; max-width: 520px; border-radius: 10px; padding: 26px 30px;
+    box-shadow: 0 18px 50px rgba(0,0,0,.25); }
+  #cookie-consent h2 { margin: 0 0 10px; font-size: 18px; }
+  #cookie-consent p { color: #46566a; font-size: 14px; line-height: 1.5; }
+  #accept { margin-top: 14px; background: #1f6feb; color: #fff; border: 0; padding: 10px 18px;
+    border-radius: 6px; font-size: 14px; cursor: pointer; }
+  .foot { color: #6c7c8f; font-size: 12px; margin-top: 24px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Quarterly Delivery Review Console</h1>
+  <div class="sub">Content Operations &middot; Q4 FY26 &middot; signed-off figures &middot; ledger 43604909</div>
+  <div class="export"><a class="export" href="https://raw.githubusercontent.com/knobbyintens/github_notion_filesystem_playwright_with_chunk_google_sheet_terminal_fetch_5642-43604909/main/console/ledger_export.json">Raw analytics export (JSON)</a></div>
+</header>
+<main>
+  <div class="hint">Signed-off figures are calculated from reviewed units, blocked units and later revocations.</div>
+  <div id="waves"></div>
+  <div class="foot">Figures on this console supersede any contributor-side metadata.</div>
+</main>
+
+<div id="cookie-consent">
+  <div class="box">
+    <h2>Review console session</h2>
+    <p>This console stores the current review session in a cookie so that open
+    sections survive a page refresh. Accept the session notice before reading
+    signed-off figures.</p>
+    <button id="accept">Accept and open console</button>
+  </div>
+</div>
+
+<script>
+const RAW = "W3sicGtnIjogIm9uYm9hcmRpbmctZXNzZW50aWFscyIsICJ3YXZlIjogMSwgInJldmlld2VkIjogMTIwLCAiYmxvY2tlZCI6IDIsICJyZXZva2VkIjogMH0sIHsicGtnIjogImJpbGxpbmctZ2xvc3NhcnkiLCAid2F2ZSI6IDEsICJyZXZpZXdlZCI6IDgwLCAiYmxvY2tlZCI6IDQsICJyZXZva2VkIjogMH0sIHsicGtnIjogImFwaS1xdWlja3N0YXJ0IiwgIndhdmUiOiAxLCAicmV2aWV3ZWQiOiAxNDEsICJibG9ja2VkIjogMCwgInJldm9rZWQiOiA2fSwgeyJwa2ciOiAibWlncmF0aW9uLW5vdGVzIiwgIndhdmUiOiAxLCAicmV2aWV3ZWQiOiAxMDAsICJibG9ja2VkIjogOCwgInJldm9rZWQiOiAwfSwgeyJwa2ciOiAic2RrLXNuaXBwZXRzIiwgIndhdmUiOiAyLCAicmV2aWV3ZWQiOiA2NCwgImJsb2NrZWQiOiAwLCAicmV2b2tlZCI6IDB9LCB7InBrZyI6ICJyZWxlYXNlLXBsYXlib29rIiwgIndhdmUiOiAyLCAicmV2aWV3ZWQiOiAyMTQsICJibG9ja2VkIjogNCwgInJldm9rZWQiOiAwfSwgeyJwa2ciOiAibG9jYWxpemF0aW9uLWtpdCIsICJ3YXZlIjogMiwgInJldmlld2VkIjogNjAsICJibG9ja2VkIjogMywgInJldm9rZWQiOiAwfSwgeyJwa2ciOiAidGVsZW1ldHJ5LWd1aWRlIiwgIndhdmUiOiAyLCAicmV2aWV3ZWQiOiA5MCwgImJsb2NrZWQiOiA3LCAicmV2b2tlZCI6IDB9LCB7InBrZyI6ICJzZWN1cml0eS1jaGVja2xpc3QiLCAid2F2ZSI6IDMsICJyZXZpZXdlZCI6IDE1MiwgImJsb2NrZWQiOiAzLCAicmV2b2tlZCI6IDB9LCB7InBrZyI6ICJzdHlsZS10b2tlbnMiLCAid2F2ZSI6IDMsICJyZXZpZXdlZCI6IDYwLCAiYmxvY2tlZCI6IDAsICJyZXZva2VkIjogMTZ9LCB7InBrZyI6ICJhcmNoaXZlLWluZGV4IiwgIndhdmUiOiAzLCAicmV2aWV3ZWQiOiA0MiwgImJsb2NrZWQiOiAzLCAicmV2b2tlZCI6IDh9LCB7InBrZyI6ICJjaGFubmVsLXBhcnRuZXIta2l0IiwgIndhdmUiOiAzLCAicmV2aWV3ZWQiOiAxMDgsICJibG9ja2VkIjogNiwgInJldm9rZWQiOiAwfV0=";
+const ROWS = JSON.parse(atob(RAW));
+const WAVES = {
+  1: "Wave 1 - Foundation packages (4 items)",
+  2: "Wave 2 - Platform packages (4 items)",
+  3: "Wave 3 - Enablement packages (4 items)"
+};
+const openState = {1: false, 2: false, 3: false};
+
+function signed(row) { return row.reviewed - row.blocked - row.revoked; }
+
+function render() {
+  const host = document.getElementById("waves");
+  host.innerHTML = "";
+  Object.keys(WAVES).forEach(function (wave) {
+    const card = document.createElement("section");
+    card.className = "wave-card";
+    const head = document.createElement("div");
+    head.className = "wave-head";
+    head.setAttribute("role", "button");
+    head.setAttribute("aria-label", WAVES[wave]);
+    head.innerHTML = "<span>" + WAVES[wave] + "</span><span class='chev'>" +
+      (openState[wave] ? "v" : ">") + "</span>";
+    head.addEventListener("click", function () { openState[wave] = !openState[wave]; render(); });
+    card.appendChild(head);
+    if (openState[wave]) {
+      const body = document.createElement("div");
+      body.className = "wave-body";
+      let html = "<table><thead><tr><th>Package</th><th>Reviewed</th><th>Blocked</th>" +
+        "<th>Revoked</th><th>Signed off</th></tr></thead><tbody>";
+      ROWS.filter(function (r) { return String(r.wave) === String(wave); }).forEach(function (r) {
+        html += "<tr><td>" + r.pkg + "</td><td>" + r.reviewed + "</td><td>" + r.blocked +
+          "</td><td>" + r.revoked + "</td><td><strong>" + signed(r) + "</strong></td></tr>";
+      });
+      html += "</tbody></table>";
+      html += "<button class='sync'>Sync source export</button>";
+      body.innerHTML = html;
+      body.querySelector(".sync").addEventListener("click", function (event) {
+        event.stopPropagation();
+        openState[wave] = !openState[wave];
+        render();
+      });
+      card.appendChild(body);
+    }
+    host.appendChild(card);
+  });
+}
+
+document.getElementById("accept").addEventListener("click", function () {
+  document.getElementById("cookie-consent").remove();
+});
+
+render();
+</script>
+</body>
+</html>

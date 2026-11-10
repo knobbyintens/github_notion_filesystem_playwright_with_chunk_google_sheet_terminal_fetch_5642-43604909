@@ -1,0 +1,78 @@
+{
+  "generated_at": "2026-11-09T23:40:00Z",
+  "source": "content-ops analytics",
+  "rows": [
+    {
+      "item": "onboarding-essentials",
+      "units_total": 120,
+      "units_blocked": 2,
+      "units_passed": 118
+    },
+    {
+      "item": "billing-glossary",
+      "units_total": 80,
+      "units_blocked": 4,
+      "units_passed": 76
+    },
+    {
+      "item": "api-quickstart",
+      "units_total": 141,
+      "units_blocked": 0,
+      "units_passed": 141
+    },
+    {
+      "item": "migration-notes",
+      "units_total": 100,
+      "units_blocked": 8,
+      "units_passed": 92
+    },
+    {
+      "item": "sdk-snippets",
+      "units_total": 64,
+      "units_blocked": 0,
+      "units_passed": 64
+    },
+    {
+      "item": "release-playbook",
+      "units_total": 214,
+      "units_blocked": 4,
+      "units_passed": 210
+    },
+    {
+      "item": "localization-kit",
+      "units_total": 60,
+      "units_blocked": 3,
+      "units_passed": 57
+    },
+    {
+      "item": "telemetry-guide",
+      "units_total": 90,
+      "units_blocked": 7,
+      "units_passed": 83
+    },
+    {
+      "item": "security-checklist",
+      "units_total": 152,
+      "units_blocked": 3,
+      "units_passed": 149
+    },
+    {
+      "item": "style-tokens",
+      "units_total": 60,
+      "units_blocked": 0,
+      "units_passed": 60
+    },
+    {
+      "item": "archive-index",
+      "units_total": 42,
+      "units_blocked": 3,
+      "units_passed": 39
+    },
+    {
+      "item": "channel-partner-kit",
+      "units_total": 108,
+      "units_blocked": 6,
+      "units_passed": 102
+    }
+  ]
+}
